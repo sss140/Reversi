@@ -52,10 +52,7 @@ class GameManager:ObservableObject{
     
     
     init(){
-        for _ in 0...7{
-            let emptyRow = [Grid](repeating: Grid(stone: .none), count: 8)
-            matrix.append(emptyRow)
-        }
+        matrix = (0...7).map{ _ in [Grid](repeating: Grid(stone: .none), count: 8)}
         setup()
     }
     
@@ -174,7 +171,9 @@ struct ContentView: View {
                             .frame(width: 40, height: 40)
                             .foregroundColor(gameManager.matrix[i/8][i%8].stone.color)
                     }.onTapGesture {
+                        withAnimation{
                         gameManager.reverse(y: i/8, x: i%8)
+                        }
                     }
                 }
             }
